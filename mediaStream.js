@@ -21,14 +21,14 @@ function getCam() {
     });
 }
 
-function RecScreen(start) {
+function RecScreen(start, echoCancellation, noiseSuppression) {
     navigator.mediaDevices.getDisplayMedia({
         video: {
           cursor: "always"
         },
         audio: {
-          echoCancellation: true,
-          noiseSuppression: true,
+          echoCancellation: echoCancellation.checked,
+          noiseSuppression: noiseSuppression.checked,
           sampleRate: 44100
         }
       })
@@ -114,8 +114,12 @@ function Timer(timer, h, m, s) {
 window.addEventListener('DOMContentLoaded', function () {
 
     let start = document.getElementById('btnStart');
+    let echo = document.querySelector('#echoCancellation');
+    let noise = document.querySelector('#noiseSuppression');
     
     start.addEventListener('click', () => {
-        RecScreen(start);
+        RecScreen(start, echo, noise);
+        echo.disabled = true;
+        noise.disabled = true;
     });
 });

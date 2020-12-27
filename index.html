@@ -2,13 +2,21 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>MediaCapture and Streams API</title>
+    <title>EM Screen Recorder</title>
     <meta name="viewport" content="width=device-width">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <main>
         <h1>EM Screen Recorder</h1>
+        <div class="cofiguration">
+            
+            <input id="echoCancellation" type="checkbox" value="Echo Cancellation" checked />
+            <label for="echoCancellation">Echo Cancellation</label>
+
+            <input id="noiseSuppression" type="checkbox" value="Noise Suppression" checked />
+            <label for="noiseSuppression">Noise Suppression</label>
+        </div>
 
         <button id="btnStart">Record Screen</button>
         <input hidden id="timer" type="checkbox" />

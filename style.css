@@ -67,6 +67,12 @@ main.recording::before {
   background-color: #1fa90e;
 }
 
+.cofiguration {
+  margin-bottom: 30px;
+  background-color: #eeeeee;
+  padding: 10px;
+}
+
 #btnStart {
     border: none;
     padding: 2rem 5rem;
