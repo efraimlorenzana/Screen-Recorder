@@ -35,10 +35,13 @@ function RecScreen(start, echoCancellation, noiseSuppression) {
     .then(function(mediaStreamObj) {
         
         //add listeners for saving video/audio
-        let screen = document.getElementById('screen');
-        let main = document.querySelector('main');
-        let loading = document.querySelector('.lds-hourglass');
-        let mediaRecorder = new MediaRecorder(mediaStreamObj);
+        const screen = document.getElementById('screen');
+        const main = document.querySelector('main');
+        const loading = document.querySelector('.lds-hourglass');
+        const preview = document.querySelector('#btnPreview');
+        const close = document.querySelector('#closeScreen');
+        const mediaRecorder = new MediaRecorder(mediaStreamObj);
+        
         var timer = document.querySelector('#timer');
         let chunks = [];
         
@@ -59,7 +62,10 @@ function RecScreen(start, echoCancellation, noiseSuppression) {
             chunks = [];
             let videoURL = window.URL.createObjectURL(blob);
             screen.src = videoURL;
-            screen.parentElement.classList.remove('hide');
+            
+            preview.classList.remove('hide');
+            loading.classList.add('hide');
+            main.classList.remove('recording');
 
             screen.currentTime = 36000; 
 
@@ -75,6 +81,14 @@ function RecScreen(start, echoCancellation, noiseSuppression) {
             mediaRecorder.stop();
             timer.checked = false;
         };
+
+        preview.addEventListener('click', function () {
+            screen.parentElement.classList.remove('hide');
+        });
+
+        close.addEventListener('click', function () {
+            screen.parentElement.classList.add('hide');
+        });
     })
     .catch(function(err) { 
         console.log(err.name, err.message); 

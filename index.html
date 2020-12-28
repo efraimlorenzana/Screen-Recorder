@@ -19,6 +19,7 @@
         </div>
 
         <button id="btnStart">Record Screen</button>
+        <button id="btnPreview" class="hide">Preveiw</button>
         <input hidden id="timer" type="checkbox" />
 
         <div class="lds-hourglass hide">
@@ -27,10 +28,32 @@
 
         <div class="container hide">
             <video id="screen" controls></video>
+            <button id="closeScreen">Close</button>
         </div>
         
         <video id="cam" class="hide" controls></video>
-    </main>    
+
+        <section class="utility">
+            <h3>Utilities</h3>
+            <input id="speechNote" type="checkbox" value="Speech Notes" />
+            <label for="speechNote">Speech Note</label>
+        </section>
+
+        <fieldset id="speechNoteField" class="hide">
+            <legend>Speech Note</legend>
+            <p class="hide">
+                listening. Try speaking into the microphone.
+            </p>
+            <textarea id="transcribe"></textarea>
+            
+            <div>
+                <button id="speakNow">Speak now</button>
+                <button id="speakStop" hidden>Stop</button>
+            </div>
+        </fieldset>
+    </main> 
+    
+    <script src="speechRecognition.js"></script>
     <script src="mediaStream.js"></script>
 </body>
 </html>
