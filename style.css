@@ -73,6 +73,11 @@ main.recording::before {
   padding: 10px;
 }
 
+.cofiguration > div {
+  display: flex;
+  justify-content: space-around;
+}
+
 #btnStart,
 #btnPreview {
     border: none;
@@ -123,4 +128,35 @@ main > .container > video {
 #closeScreen:hover {
   background-color: #1d1b1b;
   color: white;
+}
+
+.utility {
+  background-color: #eeeeee;
+  padding: 5px 20px;
+  margin-top: 25px;
+}
+
+.utility h3 {
+  text-align: left;
+}
+
+#speechNoteField {
+  border: none;
+}
+
+#speechNoteField textarea {
+  width: 100%;
+  height: 100px;
+}
+
+#toggleMic {
+  margin-top: 1rem;
+  padding: 5px 20px;
+  border: none;
+  background-color: #000000;
+  color: red;
+}
+
+#toggleMic.mic-on {
+  color: #a9f0a9;;
 }

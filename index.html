@@ -11,11 +11,29 @@
         <h1>EM Screen Recorder</h1>
         <div class="cofiguration">
             
-            <input id="echoCancellation" type="checkbox" value="Echo Cancellation" checked />
-            <label for="echoCancellation">Echo Cancellation</label>
+            <div>
+                <span>
+                    <input id="echoCancellation" type="checkbox" value="Echo Cancellation" checked />
+                    <label for="echoCancellation">Echo Cancellation</label>
+                </span>
 
-            <input id="noiseSuppression" type="checkbox" value="Noise Suppression" checked />
-            <label for="noiseSuppression">Noise Suppression</label>
+                <span>
+                    <input id="noiseSuppression" type="checkbox" value="Noise Suppression" checked />
+                    <label for="noiseSuppression">Noise Suppression</label>
+                </span>
+            </div>
+
+            <div>
+                <span>
+                    <input id="enableMic" type="checkbox" value="Enable Mic" checked />
+                    <label for="enableMic">Enable Mic</label>
+                </span>
+
+                <span>
+                    <input id="enableCam" type="checkbox" value="Enable CAM" />
+                    <label for="enableCam">Enable CAM</label>
+                </span>
+            </div>
         </div>
 
         <button id="btnStart">Record Screen</button>
@@ -32,6 +50,7 @@
         </div>
         
         <video id="cam" class="hide" controls></video>
+        <video id="mic" class="hide" controls></video>
 
         <section class="utility">
             <h3>Utilities</h3>
@@ -40,7 +59,6 @@
         </section>
 
         <fieldset id="speechNoteField" class="hide">
-            <legend>Speech Note</legend>
             <p class="hide">
                 listening. Try speaking into the microphone.
             </p>
@@ -51,6 +69,8 @@
                 <button id="speakStop" hidden>Stop</button>
             </div>
         </fieldset>
+
+        <button id="toggleMic" class="hide">MIC</button>
     </main> 
     
     <script src="speechRecognition.js"></script>
