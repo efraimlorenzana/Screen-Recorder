@@ -100,10 +100,11 @@ function RecScreen(start, echoCancellation, noiseSuppression) {
     
             mediaRecorder.onstop = () => {
                 let blob = new Blob(chunks, { 'type' : 'video/webm;' });
-                window.URL.revokeObjectURL(blob);
                 chunks = [];
                 let videoURL = window.URL.createObjectURL(blob);
                 screen.src = videoURL;
+
+                window.URL.revokeObjectURL(blob);
 
                 // var outputStream = new MediaStream;
                 // outputStream.addTrack(chunks[0]);
@@ -181,10 +182,14 @@ window.addEventListener('DOMContentLoaded', function () {
     let start = document.getElementById('btnStart');
     let echo = document.querySelector('#echoCancellation');
     let noise = document.querySelector('#noiseSuppression');
+    let mic = document.querySelector('#enableMic');
+    let cam = document.querySelector('#enableCam');
     
     start.addEventListener('click', () => {
         RecScreen(start, echo, noise);
         echo.disabled = true;
         noise.disabled = true;
+        mic.disabled = true;
+        cam.disabled = true;
     });
 });
