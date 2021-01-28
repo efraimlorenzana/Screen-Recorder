@@ -15,10 +15,21 @@ jobs:
     steps:
     - uses: actions/checkout@master
 
+    - name: Set up Node.js version
+      uses: actions/setup-node@v1
+      with:
+        node-version: '14.x'
+
+    - name: npm install, build, and test
+      run: |
+        npm install
+        npm run build --if-present
+        npm run test --if-present
+
     - name: 'Deploy to Azure Web App'
       uses: azure/webapps-deploy@v2
       with:
         app-name: 'em-screenrecorder'
         slot-name: 'production'
-        publish-profile: ${{ secrets.AzureAppService_PublishProfile_8677dd1c60eb427f91c73cb337cf3de0 }}
+        publish-profile: ${{ secrets.AzureAppService_PublishProfile_7cb3cb4b382b4e6bbdd62131e02c57e0 }}
         package: .
