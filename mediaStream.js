@@ -58,9 +58,37 @@ function RecScreen(start, echoCancellation, noiseSuppression) {
             const loading = document.querySelector('.lds-hourglass');
             const preview = document.querySelector('#btnPreview');
             const close = document.querySelector('#closeScreen');
-            const mediaRecorder = new MediaRecorder(mediaStreamObj);
             let audioRecorder = null;
             let micOnFlag = false;
+            let mediaRecorder;
+            
+            if(mic) {
+                const audioContext = new AudioContext();
+
+                const micAudio = audioContext.createMediaStreamSource(mic);
+                const systemAudio = audioContext.createMediaStreamSource(mediaStreamObj);
+
+                const dest = audioContext.createMediaStreamDestination();
+                systemAudio.connect(dest);
+
+                let combined = new MediaStream([...dest.stream.getTracks(), ...mediaStreamObj.getTracks()]);
+                mediaRecorder = new MediaRecorder(combined);
+
+                // Mic Controller
+                toggleMic.classList.remove('hide');
+                toggleMic.addEventListener('click', function () {
+                    if(micOnFlag) {
+                        micOnFlag = false;
+                        toggleMic.classList.remove('mic-on');
+                        micAudio.disconnect(dest);
+                    } else {
+                        micOnFlag = true;
+                        toggleMic.classList.add('mic-on');
+                        micAudio.connect(dest);
+                    }
+                });
+            }
+            else mediaRecorder = new MediaRecorder(mediaStreamObj);
             
             var timer = document.querySelector('#timer');
             let chunks = [];
@@ -71,28 +99,6 @@ function RecScreen(start, echoCancellation, noiseSuppression) {
             loading.classList.remove('hide');
             timer.checked = true;
             Timer(timer, 0, 0, 0);
-
-            if(mic) {
-                // audioRecorder = new MediaRecorder(mic);
-                // audioRecorder.start();
-
-                // audioRecorder.ondataavailable = function(ev) {
-                //     chunks.push(ev.data);
-                // }
-                micStream.srcObject = mic;
-                toggleMic.classList.remove('hide');
-                toggleMic.addEventListener('click', function () {
-                    if(micOnFlag) {
-                        micOnFlag = false;
-                        micStream.pause();
-                        toggleMic.classList.remove('mic-on');
-                    } else {
-                        micOnFlag = true;
-                        micStream.play();
-                        toggleMic.classList.add('mic-on');
-                    }
-                });
-            }
     
             mediaRecorder.ondataavailable = function(ev) {
                 chunks.push(ev.data);
@@ -105,24 +111,12 @@ function RecScreen(start, echoCancellation, noiseSuppression) {
                 screen.src = videoURL;
 
                 window.URL.revokeObjectURL(blob);
-
-                // var outputStream = new MediaStream;
-                // outputStream.addTrack(chunks[0]);
-                // //outputAudioStream.addTrack(mic.getAudioTracks()[0].clone());
-                // screen.src = outputStream;
                 
                 preview.classList.remove('hide');
                 loading.classList.add('hide');
                 main.classList.remove('recording');
     
-                screen.currentTime = 36000;
-    
-                // var audio = document.createElement('audio');
-                // audio.controls = true;
-                // var blob = new Blob(chunks, { 'type' : 'audio/mp3; codecs=opus' });
-                // var audioURL = window.URL.createObjectURL(blob);
-                // audio.src = audioURL;
-                // document.querySelector('main').appendChild(audio);
+                screen.currentTime = 9999999;
             }
     
             mediaStreamObj.getVideoTracks()[0].onended = function () {
